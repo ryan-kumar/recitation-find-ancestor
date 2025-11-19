@@ -30,7 +30,9 @@ std::string CultivarTree::LowestCommonAncestor(Node* cultivar_one,
                                                Node* cultivar_two) {
   //   (void)cultivar_one;  // remove when you begin coding
   //   (void)cultivar_two;  // remove when you begin coding
-
+  if (!cultivar_one || !cultivar_two) {
+    throw std::invalid_argument("Bad cultivars");
+  }
   Node* curr = root_;
 
   while (curr) {
@@ -107,7 +109,7 @@ std::stringstream& CultivarTree::ToStream(Node* n,
   if (n->left_)
     ToStream(n->left_, depth + 1, s, os);
   else
-    os << "NULL\n";
+    os << "____\n";
   s.erase(s.end() - 4, s.end());
 
   os << s << " l--[R]";
@@ -115,7 +117,7 @@ std::stringstream& CultivarTree::ToStream(Node* n,
   if (n->right_)
     ToStream(n->right_, depth + 1, s, os);
   else
-    os << "NULL\n";
+    os << "____\n";
   s.erase(s.end() - 4, s.end());
   return os;
 }

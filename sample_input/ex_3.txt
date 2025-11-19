@@ -1,0 +1,7 @@
+"Zea mays" 30
+"Field Corn Group" 20
+"Sweet Corn Group" 40
+"Dent Corn" 15
+"Flint Corn" 25
+"Yellow Sweet" 35
+"White Sweet" 45

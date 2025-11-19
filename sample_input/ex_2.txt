@@ -1,0 +1,7 @@
+"Malus domestica" 50
+"Heritage Group" 40
+"Modern Group" 60
+"Granny Smith" 35
+"McIntosh" 45
+"Fuji" 55
+"Honeycrisp" 70
