@@ -1,14 +1,11 @@
 #include <iostream>
 
-#include "flight_controller.hpp"
+#include "cultivar_tree.hpp"
 
 int main() {
-  std::vector<std::pair<unsigned int, std::string>> jets = {
-      {5, "jack"}, {3, "james"}, {2, "juny"}};
+  CultivarTree ct("sample_in/ex_1.txt");
 
-  FlightController fc(jets);
-
-  std::cout << fc << std::endl;
+  std::cout << ct << std::endl;
 
   return 0;
 }

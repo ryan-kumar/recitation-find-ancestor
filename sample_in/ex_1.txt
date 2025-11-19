@@ -1,0 +1,8 @@
+"Brassica oleracea" 10
+"Leaf Group" 8
+"Inflorescence Group" 12
+
+"Kale" 6
+"Cabbage" 9
+"Broccoli" 11
+"Cauliflower" 14
