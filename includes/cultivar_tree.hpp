@@ -18,11 +18,12 @@ public:
   //////////////////////////////////////////////////////////////////
 
   CultivarTree(const std::string& file_name);  // TODO
-  Node* LowestCommonAncestor(Node* root,
-                             Node* cultivar_one,
-                             Node* cultivar_two);  // TODO
+  std::string LowestCommonAncestor(Node* cultivar_one,
+                                   Node* cultivar_two);  // TODO
 
   //////////////////////////////////////////////////////////////////
+
+  static Node* Find(Node* root, const std::string& label);
 
   std::vector<Node*> NodesFromFile(const std::string& file_name);
 
@@ -39,7 +40,7 @@ public:
   Node* GetRoot() const { return root_; }
 
 private:
-  Node* root_;
+  Node* root_ = nullptr;
 };
 
 std::ostream& operator<<(std::ostream& os, CultivarTree& ct);

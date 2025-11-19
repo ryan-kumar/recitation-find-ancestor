@@ -8,6 +8,7 @@
 /// Your implementation here!
 ///////////////////////////////////////////
 
+// You may find it helpful to implement this helper function!
 void InsertNode(Node*& root, Node* node) {
   if (!root) {
     root = node;
@@ -25,15 +26,24 @@ CultivarTree::CultivarTree(const std::string& file_name) {
   }
 }
 
-Node* CultivarTree::LowestCommonAncestor(Node* root,
-                                         Node* cultivar_one,
-                                         Node* cultivar_two) {
+std::string CultivarTree::LowestCommonAncestor(Node* cultivar_one,
+                                               Node* cultivar_two) {
   //   (void)cultivar_one;  // remove when you begin coding
   //   (void)cultivar_two;  // remove when you begin coding
 
-  if (!root || cultivar_one == root || cultivar_two == root) {
-    return root;
+  Node* curr = root_;
+
+  while (curr) {
+    if (cultivar_one->key_ > curr->key_ && cultivar_two->key_ > curr->key_) {
+      curr = curr->right_;
+    } else if (cultivar_one->key_ < curr->key_ &&
+               cultivar_two->key_ < curr->key_) {
+      curr = curr->left_;
+    } else {
+      return curr->label_;
+    }
   }
+  return "";
 }
 
 ////////////////////////////////////////////
@@ -43,7 +53,7 @@ std::vector<Node*> CultivarTree::NodesFromFile(const std::string& file_name) {
   std::vector<Node*> nodes;
   std::ifstream ifs{file_name};
   if (!ifs.is_open()) {
-    std::cerr << "Could not open " << file_name << std::endl;
+    std::cout << "Could not open " << file_name << std::endl;
     exit(1);
   }
   int key = 0;
@@ -52,6 +62,15 @@ std::vector<Node*> CultivarTree::NodesFromFile(const std::string& file_name) {
     nodes.push_back(new Node(key, label));
   }
   return nodes;
+}
+
+Node* CultivarTree::Find(Node* root, const std::string& label) {
+  if (root == nullptr || root->label_ == label) {
+    return root;
+  }
+  Node* left = Find(root->left_, label);
+  Node* right = Find(root->right_, label);
+  return (left && left->label_ == label) ? left : right;
 }
 
 void Clear(Node* node) {
