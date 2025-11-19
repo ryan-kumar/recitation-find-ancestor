@@ -34,8 +34,6 @@ Node* CultivarTree::LowestCommonAncestor(Node* root,
   if (!root || cultivar_one == root || cultivar_two == root) {
     return root;
   }
-
-  return "";
 }
 
 ////////////////////////////////////////////
