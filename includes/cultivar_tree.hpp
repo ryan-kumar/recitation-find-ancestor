@@ -10,6 +10,7 @@
 class CultivarTree {
 public:
   ~CultivarTree();
+  CultivarTree() = default;
   CultivarTree(const CultivarTree& other) = delete;
   CultivarTree& operator=(const CultivarTree& other) = delete;
 
@@ -39,6 +40,8 @@ public:
                               std::stringstream& os) const;
 
   Node* GetRoot() const { return root_; }
+
+  Node*& Root() { return root_; }
 
 private:
   Node* root_ = nullptr;
