@@ -89,52 +89,35 @@
   <li><code class="language-cpp">"node.hpp"</code></li>
   <li><code class="language-cpp">&lt;ostream&gt;</code></li>
   <li><code class="language-cpp">&lt;fstream&gt;</code></li>
-  
-
-  <li><code class="language-cpp">&lt;stdexcept&gt;</code></li>
+  <li><code class="language-cpp">&lt;string&gt;</code></li>
+  <li><code class="language-cpp">&lt;vector&gt;</code></li>
+  <li><code class="language-cpp">&lt;iostream&gt;</code></li>
+  <li><code class="language-cpp">&lt;iomanip&gt;</code></li>
+  <li><code class="language-cpp">&lt;sstream&gt;</code></li>
 </ul>
 
-<p>In order to simplify your implementation, 
-    we have provided a series of helper functions for your use.
+<p>
+     Note that while we will be depicting our Cultivar Tree as a BST, 
+        this not necessarily in line with most broadly accepted depictions. 
 </p>
-
-
-
-
- <div class="note">
-        <h6>Aside: A Note on Resizing Policies</h6>
-        <p>For simplicity, we will always reallocate our <i>string_</i> character array to 
-          a size large enough to fit <b><i>only</i></b> the characters we are storing and the sentinel value. 
-          In practice, this is a rather inefficient 
-          policy that requires us to perform a reallocation and 
-          copy of the entire existing string every time we wish to append a character or string.
-          CS 225 will cover this topic in more depth; please implement the functions as described in this assignment.
-        </p>
-    </div>
-
- <div class="important">
-        <h6>Important: Memory Management</h6>
-        <p>This assignment heavily emphasizes proper memory management in C++. Pay close attention to when and how you allocate, deallocate, and reallocate memory.
-        </p>
-    </div>
 
 <hr>
 <h3>Provided Functions:</h3>
 <div class="box">
-  <pre><code class="language-cpp">SimpleString::~SimpleString()</code></pre>
+  <pre><code class="language-cpp">CultivarTree::~CultivarTree()</code></pre>
 </div>
 <p>
-    Destructor for the <code class="language-cpp">SimpleString</code> class; 
+    Destructor for the <code class="language-cpp">CultivarTree</code> class; 
     deallocates any resources allocated on the free store. 
-    This function is implicitly called when <code class="language-cpp">SimpleString</code> reaches the end of its lifetime, 
-    or is explicitly deleted. This destructor relies on your implementation of <code class="language-cpp">Clear()</code> to function correctly.
+    This function is implicitly called when <code class="language-cpp">CultivarTree</code> reaches the end of its lifetime, 
+    or is explicitly deleted.
 </p>
 
 <div class="box">
-  <pre><code class="language-cpp">unsigned int SimpleString::Length() const</code></pre>
+  <pre><code class="language-cpp">std::vector<Node*> CultivarTree::NodesFromFile(const std::string& file_name)</code></pre>
 </div>
 <p>
-    Returns the value stored within the <i>length_</i> data member.
+    
 </p>
 
 <div class="box">
