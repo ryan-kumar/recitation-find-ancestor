@@ -3,14 +3,14 @@
 #include "cultivar_tree.hpp"
 
 int main() {
-  CultivarTree ct("sample_input/ex_3.txt");
+  CultivarTree ct("sample_input/ex_2.txt");
 
   std::cout << ct << std::endl;
 
-  std::cout << "The common ancestor of Dent Corn & Flint Corn is: "
+  std::cout << "The lowest common ancestor of Kale & Cabbage is: "
             << (ct.LowestCommonAncestor(
-                   CultivarTree::Find(ct.GetRoot(), "Dent Corn"),
-                   CultivarTree::Find(ct.GetRoot(), "Flint Corn")))
+                   CultivarTree::Find(ct.GetRoot(), "Kale"),
+                   CultivarTree::Find(ct.GetRoot(), "Cabbage")))
             << std::endl;
 
   return 0;

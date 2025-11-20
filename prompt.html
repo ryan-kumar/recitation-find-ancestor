@@ -65,7 +65,7 @@
         </p>
     </div>
 <p>
-    Binary Search Trees (and all other variants) also provide additional 
+    Binary Search Trees (and all other trees) also provide additional 
  functionality through the hierarchical ordering of their nodes. 
     This allows us to model a number of interesting structures in which 
     the children of a given parent node are connected by some underlying characteristic. 
@@ -118,92 +118,112 @@
 </div>
 <p>
     Returns an std::vector of pointers to Nodes that have been allocated on 
-    the free store, from a file that defines the structure of a given Cultivar Tree.
+    the free store, from a file that defines the structure of a given Cultivar Tree. 
+    Files accepted by this function are in the following format,
+     where the first value on each row denotes the <i>label_</i> of a given node, and the second value denotes the <i>key_</i>.
+
 </p>
+<div class="box">
+  <pre><code class="language-cpp">    "Brassica oleracea" 10
+    "Leaf Group" 8
+    "Inflorescence Group" 12
+    "Kale" 6
+    "Cabbage" 9
+    "Broccoli" 11
+    "Cauliflower" 14
+     </code></pre>
+</div>
 
 <div class="box">
-  <pre><code class="language-cpp">char* SimpleString::String()</code></pre>
+  <pre><code class="language-cpp">std::ostream& operator&lt;&lt;(std::ostream& os, CultivarTree& ct);</code></pre>
 </div>
 <p>
-    Returns a pointer to the <i>string_</i> data member.
+    Inserts a representation of the specified <code class="language-cpp">CultivarTree</code> object into the desired output stream.
 </p>
-
-<div class="box">
-  <pre><code class="language-cpp">friend std::ostream& operator&lt;&lt;(std::ostream& os, const SimpleString& s);</code></pre>
-</div>
-<p>
-    Inserts the contents of the <i>string_ </i> data member into the specified output stream.
-</p>
-
-
-
 
 <hr>
 
 <h3>Functions to Implement:</h3>
 
 <div class="box">
-  <pre><code class="language-cpp">SimpleString::SimpleString(const char* init_string)</code></pre>
+  <pre><code class="language-cpp">CultivarTree::CultivarTree(const std::string& file_name);</code></pre>
 </div>
 <p>
-    Initializes a new <code class="language-cpp">SimpleString</code> object with the passed in <i>init_string</i>. 
-    Upon completed execution, the <i>string_</i> data member should point to a C-string allocated on the free store, 
-    containing the same values as <i>init_string</i>. Additionally, you must also ensure that <i>length_</i> is updated properly. 
-    Note that <i>length_</i> is the number of characters within the string, <b><i>not</i></b> including the sentinel value.
-    If a null <i>init_string</i> is passed in, throw an <code class="language-cpp">std::invalid_argument</code> exception. 
-    Pay close attention to the size <i>string_</i> should be allocated to. 
-    <i>Hint: what is the size of a C-string in relation to the number of characters that are stored?</i>
+    Initializes a new <code class="language-cpp">CultivarTree</code> object 
+    storing the nodes as specified by the provided <i>file_name</i>. 
+    You will need to use the provided 'NodesFromFile' function 
+    in order to parse the specified file data into an <code class="language-cpp">std::vector</code> 
+    storing the Nodes that will make up the given <code class="language-cpp">CultivarTree</code> instance. 
+    After the nodes have been obtained, you must sequentially insert each one into the tree, 
+    upholding the BST property as specified earlier. You will use the <i>key_</i> 
+    data member stored within each node to accomplish this. <i>Hint: you may (or may not, depending on your preference) 
+    want to define a helper function to aid in your implementation of this function.</i>
 </p>
+<p>Here is a visual example of the structure of a given Cultivar Tree:</p>
+<div class="box">
+  <pre><code class="language-cpp">(10: Brassica oleracea)
+ l--[L](8: Leaf Group)
+ |   l--[L](6: Kale)
+ |   |   l--[L]____
+ |   |   l--[R]____
+ |   l--[R](9: Cabbage)
+ |       l--[L]____
+ |       l--[R]____
+ l--[R](12: Inflorescence Group)
+     l--[L](11: Broccoli)
+     |   l--[L]____
+     |   l--[R]____
+     l--[R](14: Cauliflower)
+         l--[L]____
+         l--[R]____
+  </code></pre>
+</div>
 
 <div class="box">
-  <pre><code class="language-cpp">void SimpleString::Clear()</code></pre>
+  <pre><code class="language-cpp">std::string CultivarTree::LowestCommonAncestor(Node* cultivar_one,
+    Node* cultivar_two);</code></pre>
 </div>
 
 <p>
-    Deallocates <i>string_</i>, and sets <i>length_</i> to 0. 
-    Ensure no dangling pointers are left behind. 
+    Returns the <i>label_</i> of the node that is the lowest common ancestor of 
+    <i>cultivar_one</i> and <i>cultivar_two</i>. 
+    The lowest common ancestor is defined as the deepest possible node in a given tree, of which 
+    <i>cultivar_one</i> and <i>cultivar_two</i> are descendants of. 
+    It is guaranteed that <i>cultivar_one</i> and <i>cultivar_two</i> will be leaf nodes. 
+    Note that for the purposes of this function, it is possible for a given node to be a descendant of itself.
+    
+    If either <i>cultivar_one</i> or 
+    <i>cultivar_two</i> are nullptr, throw an <code class="language-cpp">std::invalid_argument</code> exception.
 </p>
+
+<h4>Example Cases:</h4>
+Given the following Cultivar Tree:
 
 <div class="box">
-  <pre><code class="language-cpp">SimpleString& SimpleString::operator+=(char c)</code></pre>
+  <pre><code class="language-cpp">(50: Malus domestica)
+    l--[L](40: Heritage Group)
+    |   l--[L](35: Granny Smith)
+    |   |   l--[L]____
+    |   |   l--[R]____
+    |   l--[R](45: McIntosh)
+    |       l--[L]____
+    |       l--[R]____
+    l--[R](60: Modern Group)
+        l--[L](55: Fuji)
+        |   l--[L]____
+        |   l--[R]____
+        l--[R](70: Honeycrisp)
+            l--[L]____
+            l--[R]____
+  </code></pre>
 </div>
 
-<p>
-    Appends the passed in character, <i>c</i>, to the end of the <i>string_</i> data member and adjusts <i>length_</i> accordingly.
-    Allocate a new char array with enough space to store the new character. 
-    Copy over the existing contents within <i>string_</i>, along with the additional character. 
-    Delete the old char array, and set <i>string_</i> to the newly allocated array. 
-    Ensure that the sentinel value is properly set. 
-    Throw an <code class="language-cpp">std::invalid_argument</code> exception if '\0' is passed in.
-</p>
+<p>Calling <code class="language-cpp">LowestCommonAncestor</code> with the Node pointers respective to "Fuji" & "Honeycrisp" returns "Modern Group".</p>
 
-<div class="box">
-  <pre><code class="language-cpp">SimpleString& SimpleString::operator+=(const SimpleString& to_append)</code></pre>
-</div>
+<p>Calling <code class="language-cpp">LowestCommonAncestor</code> with the Node pointers respective to "Fuji" & "McIntosh" returns "Malus domestica".</p>
 
-<p>
-    Appends the contents of the char array contained within <i>to_append</i> to the end of the <i>string_</i> data member and adjusts length_ accordingly.
-    Allocate a new char array with enough space to store the additional characters within <i>to_append</i>. 
-    Copy over the existing contents within <i>string_</i>, along with the additional characters. 
-    Delete the old char array, and set <i>string_</i> to the newly allocated array. 
-    Ensure that the sentinel value is properly set.
-    <i>Hint: appending the same <code class="language-cpp">SimpleString</code> object to itself is a valid operation!</i>
-</p>
+<p>Calling <code class="language-cpp">LowestCommonAncestor</code> with the Node pointers respective to "Modern Group" & "Honeycrisp" returns "Modern Group".</p>
 
-<div class="box">
-  <pre><code class="language-cpp">void SimpleString::ReplaceAll(const char* target, const char* replacement)</code></pre>
-</div>
-<p>
-    Replaces all instances of the passed in <i>target</i> substring within the <i>string_</i> data member with <i>replacement</i>.
-    Matches to <i>target</i> are not case sensitive. You may find <code class="language-cpp"><a href="https://en.cppreference.com/w/cpp/string/byte/tolower.html">std::tolower</a></code> useful.
-    Iterate over <i>string_</i>, checking for matches with <i>target</i> at each step. 
-    If a full match is found, replace <i>target</i> with <i>replacement</i> and iterate forwards. 
-    If either <i>target</i> or <i>replacement</i> are null, throw an <code class="language-cpp">std::invalid_argument</code> exception. 
-    Additionally, throw <code class="language-cpp">std::invalid_argument</code> if no replacements were made. 
-    <i>Hint: you can create and use a separate instance of your <code class="language-cpp">SimpleString</code> class within this function.
-    You have already defined behaviors that allow you to build a new string by appending single characters or strings!
-    </i>
-</p>
 <hr>
 
 
